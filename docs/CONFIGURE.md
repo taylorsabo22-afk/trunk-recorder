@@ -281,7 +281,7 @@ When enabled, Multi-Site mode attempts to avoid recording duplicate calls by det
 
 For P25, Trunk Recorder will match calls that have the same WACN and talkgroup number but a different RFSS/SiteID. For SmartNet, Trunk Recorder will match calls that have the same multiSiteSystemName and same talkgroup number but different multiSiteSystemNumber.
 
-By default, Trunk Recorder will record the call from the first site to receive the grant and ignore the duplicate grants from the other related sites. If you want to specify the preferred site for a given talkgroup number you can add a preferred NAC (in decimal format), RFSS/SiteID (`RRRRssss`, e.g. `00010026`), or multiSiteSystemNumber to the [talkgroupsFile](#talkgroupsFile).
+By default, Trunk Recorder will record the call from the first site to receive the grant and ignore the duplicate grants from the other related sites. If you want to specify the preferred site for a given talkgroup number you can add a preferred NAC (in decimal format), RFSS/SiteID (`RRRRssss`, e.g. `00010026`), or multiSiteSystemNumber to the [talkgroupsFile](#talkgroupsfile).
 
 ```
 {
@@ -557,7 +557,7 @@ In the second row of the example below, the first capture group `([0-9]{2})` bec
 | Unit ID                  | Unit Name    |
 | ---------                | ---------    |
 | 911000                   | Dispatch     |
-| 1[1245]10([0-9]{2})[127] | Engine $1    |
+| 1[1245]10[[0-9]{2}](127) | Engine $1    |
 | /^1[78]3(1[0-9]{2})/     | Ambulance $1 |
 
 ## customFrequencyTableFile
