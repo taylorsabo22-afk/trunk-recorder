@@ -11,7 +11,6 @@ It takes a little bit of work to correctly configure Trunk Recorder, but once yo
 
 Before you can start entering values, you will need to do a little research about the radio system you are trying to capture and the correct parameters for receiving it. [Radio Reference](http://www.radioreference.com/apps/db/?coid=1) is a great place to learn about a radio system. Search for your location and then select the system you are trying to record. Take note of the frequencies that the system uses. You will want to make sure you can cover the range of frequencies used with one or more SDRs. Also look at the System Type, which tells you if it is a Trunked system and what type it is. For Trunked systems, you will need to take note of the control channels, and alternate control channels.
 
-
 ### Frequency
 
 ![](./media/gqrx.png)
@@ -32,16 +31,18 @@ The amount of tuning error is -14500Hz, so that would go under **error:** for th
 
 **NOTE:** In some instances, an alternative is to use `ppm` correction rather than the `error` configuration option.
 
-
 ### Helpful Tools
+
 Center Frequency Calculators:
-- http://alertapi.alertpage.net/sdr - Paste the frequencies from Radio Reference into this website and it will automatically calculate what center frequency you should use and how many dongles you will need. We recommend a sample rate value around 2.4 MHz for an RTL-SDR, as most can be pushed that high without stability issues.
-- https://radioetcetera.site/sdr-parameter-calculator/ - like the above, but a little more configurable.
+
+- <http://alertapi.alertpage.net/sdr> - Paste the frequencies from Radio Reference into this website and it will automatically calculate what center frequency you should use and how many dongles you will need. We recommend a sample rate value around 2.4 MHz for an RTL-SDR, as most can be pushed that high without stability issues.
+- <https://radioetcetera.site/sdr-parameter-calculator/> - like the above, but a little more configurable.
 
 Configuration File:
-- https://www.radioetcetera.site/trunk-recorder-config-editor/ - tool for using a GUI to create config.json files
-- https://github.com/AlertPageSDR/tr_configurator - If you have a Radio Reference Premium account, you can use this tool to automatically generate a config.json based on the RR data for a given system (or systems)
-- https://github.com/TrunkRecorder/trunk-recorder-configs - example configurations for different systems
+
+- <https://www.radioetcetera.site/trunk-recorder-config-editor/> - tool for using a GUI to create config.json files
+- <https://github.com/AlertPageSDR/tr_configurator> - If you have a Radio Reference Premium account, you can use this tool to automatically generate a config.json based on the RR data for a given system (or systems)
+- <https://github.com/TrunkRecorder/trunk-recorder-configs> - example configurations for different systems
 
 ### Gain
 
@@ -56,13 +57,15 @@ Generally, you can mess around with the gain slider in GQRX until the signal loo
 Once you find the correct gain settings, use them for this source in the `config.json` file.
 
 ### Center Frequency
-When you set the center frequency for a source, **you are picking the frequency that will be in the _middle_ of the block of spectrum that you are recording**. Half of the bandwidth for the device will be above that frequency and the other half below.
+
+When you set the center frequency for a source, **you are picking the frequency that will be in the *middle* of the block of spectrum that you are recording**. Half of the bandwidth for the device will be above that frequency and the other half below.
 
 For example, if you are using a HackRF, with 8MHz of bandwidth, and you tune the center frequency to 854MHz, it would cover from 850.0MHz to 858.0MHz.
 
 To find your ideal center frequency, look at what the lowest frequency you want to cover is and what the highest is. You need to need to be able cover slightly beyond the frequncy of a channel. This is because the frequency is for the center of the channel and the actual channel is wider and a bit of filtering is done to receive it. The sample rate should be higher than the difference between the low and high frequency. Most SDRs do not perform as well right at the beginnging and end of the frequency range they are set to. It is best to set a slightly higher sample rate than needed, to avoid those spots. Also, some SDRs have some artifacts right at there center frequency, so ensure that center frequency doesn't land on the frequency of a channel you are trying to record. <!-- need to add the amount TR cuts off on either side in sources.cc -->
 
 ### Multiple Sources
+
 If the low frequency and high frequency of the system you are trying to capture is greater than the amount of bandwidth your SDR can capture, you need to use multiple SDRs.
 
 In addition to being able to use a cheaper SDR, it also helps with general performance of the devices. When a single SDR is used, each of the Recorders gets fed all of the sampled signals. Each Recorder needs to cut down the multi-mega samples per second into a small 12.5Khz or even 6.25Khz(!) slivers.
@@ -101,7 +104,6 @@ Trunk Recorder is configured using a JSON formatted file. It defines the SDRs th
 }
 ```
 
-
 Here is a map of the different sections of the *config.json* file:
 
 ```json
@@ -118,7 +120,6 @@ There is a list of available Plugins [here](./Plugins.md).
 
 ## Global Configs
 
-
 | Key                          | Required | Default Value                                    | Type                                                         | Description                                                  |
 | ---------------------------- | :------: | ------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | ver                          |    ✓     |                                                  | number                                                       | The version of formatting for the config file. **This should be set to 2**. Trunk Recorder will not start without this set. |
@@ -127,7 +128,7 @@ There is a list of available Plugins [here](./Plugins.md).
 | plugins                      |          |                                                  | array of JSON objects<br />[{}]                              | An array of JSON formatted [Plugin Objects](#plugin-object) that define the different plugins to use. Refer to the [Plugin System](notes/PLUGIN-SYSTEM.md) documentation for more details. |
 | defaultMode                  |          | "digital"                                        | **"analog"** or **"digital"**                                | Default mode to use when a talkgroups is not listed in the **talkgroupsFile**. The options are *digital* or *analog*. The default is *digital*. This argument is global and not system-specific, and only affects `smartnet` trunking systems which can have both analog and digital talkpaths. |
 | tempDir                      |          | /dev/shm *(if available)* else current directory | string                                                       | The complete path to the directory where individual Transmissions are recorded, prior to be combined into a single file. It is best to use memory based file system for this. |
-| archiveFilesOnFailure        |          | false                                            | **true** / **false**                                         | If a plugin (like the OpenMHz or Broadcastify uploader) fails, should the files be saved locally or removed. If Audio Archive is set to **true** then audio is always archived and overrides this. | 
+| archiveFilesOnFailure        |          | false                                            | **true** / **false**                                         | If a plugin (like the OpenMHz or Broadcastify uploader) fails, should the files be saved locally or removed. If Audio Archive is set to **true** then audio is always archived and overrides this. |
 | captureDir                   |          | current directory                                | string                                                       | The complete path to the directory where recordings should be saved. |
 | callTimeout                  |          | 3                                                | number                                                       | A Call will stop recording and save if it has not received anything on the control channel, after this many seconds. |
 | uploadServer                 |          |                                                  | string                                                       | The URL for uploading to OpenMHz. The default is an empty string. See the Config tab for your system in OpenMHz to find what the value should be. |
@@ -151,7 +152,6 @@ There is a list of available Plugins [here](./Plugins.md).
 | newCallFromUpdate            |          | true                                             | **true** / **false**                                         | Allow for UPDATE trunking messages to start a new Call, in addition to GRANT messages. This may result in more Calls with no transmisions, and use more Recorders. The flipside is that it may catch parts of a Call that would have otherwise been missed. Turn this off if you are running out of Recorders. |
 | softVocoder                  |          | false                                            | **true** / **false**                                         | Use the Software Decode vocoder from OP25 for P25 and DMR. Give it a try if you are hearing weird tones in your audio. Whether it makes your audio sound better or worse is a matter of preference. |
 | recordUUVCalls               |          | true                                             | **true** / **false**                                         | *P25 only* Record Unit to Unit Voice calls.        |
-
 
 ## Source Object
 
@@ -193,6 +193,7 @@ Autotune corrections will also be applied to P25 control channels if using an en
 During the status display, each source will report the running average as well as a suggested `error` value to use in the config.json to improve the initial offset.
 
 ***
+
 ### SigMF Sources
 
 | Key              | Required | Default Value | Type                        | Description                                                  |
@@ -220,8 +221,6 @@ During the status display, each source will report the running average as well a
 | analogRecorders  |          |               | number                      | The number of Analog Recorder to have attached to this source. The same as Digital Recorders except for Analog Voice channels. *This is only required for Trunk systems. Channels in Conventional systems have dedicated recorders and do not need to be included here.* |
 | enabled          |          |     true      | **true** / **false**        | control whether a configured source is enabled or disabled   |
 
-
-
 ## System Object
 
 | Key                    | Required | Default Value              | Type                                                                         | Description                                                  |
@@ -235,7 +234,7 @@ During the status display, each source will report the running average as well a
 | squelch                |          | -160                       | number                                                                       | Squelch in DB, this needs to be set for all conventional systems. The squelch setting is also used for analog talkgroups in a SmartNet system. I generally use -60 for my rtl-sdr. The closer the squelch is to 0, the stronger the signal has to be to unmute it. |
 | talkgroupsFile         |          |                            | string                                                                       | The filename for a CSV file that provides information about the talkgroups. It determines whether a talkgroup is analog or digital, and what priority it should have. This file should be located in the same directory as the trunk-recorder executable. |
 | apiKey                 |          |                            | string                                                                       | *if uploadServer is set* System-specific API key for uploading calls to OpenMHz.com. See the Config tab for your system in OpenMHz to find what the value should be. |
-| openmhzSystemId        |          | `shortName`                | string                                                                       | *if uploadServer is set* By default, the plugin will upload calls to the `shortName` OpenMHz system.  Setting this value will allow uploads to any specific OpenMHz system with its valid API key.  This is useful in a multi-site setup where multiple trunk-recorder systems may be aggregating calls to the same OpenMHz feed. | 
+| openmhzSystemId        |          | `shortName`                | string                                                                       | *if uploadServer is set* By default, the plugin will upload calls to the `shortName` OpenMHz system.  Setting this value will allow uploads to any specific OpenMHz system with its valid API key.  This is useful in a multi-site setup where multiple trunk-recorder systems may be aggregating calls to the same OpenMHz feed. |
 | broadcastifyApiKey     |          |                            | string                                                                       | *if broadcastifyCallsServer is set* System-specific API key for Broadcastify Calls |
 | broadcastifySystemId   |          |                            | number                                                                       | *if broadcastifyCallsServer is set* System ID for Broadcastify Calls <br />(this is an integer, and different from the RadioReference system ID) |
 | uploadScript           |          |                            | string                                                                       | The filename of a script that is called after each recording has finished. Checkout *encode-upload.sh.sample* as an example. Should probably start with `./` ( or `../`). |
@@ -336,9 +335,7 @@ This plugin makes it easy to connect Trunk Recorder with [Rdio Scanner](https://
 | apiKey    |    ✓     |               | string | System-specific API key for uploading calls to Rdio Scanner. See the ApiKey section in the Rdio Scanner administrative dashboard for the value it should be. |
 | shortName |    ✓     |               | string | This should match the shortName of a system that is defined in the main section of the config file. |
 
-
-
-##### Example Plugin Object:
+##### Example Plugin Object
 
 ```yaml
         {
@@ -383,8 +380,10 @@ This plugin does not, by itself, stream audio to any online services.  Because i
 | shortName |          |               | string               | shortName of the System that audio should be streamed for.  This should match the shortName of a system that is defined in the main section of the config file.  When omitted, all Systems will be streamed to the address and port configured.  If TGIDs from Systems overlap, JSON metadata should be used to prevent interleaved audio for talkgroups from different Systems with the same TGID.
 |  useTCP   |          |     false     | **true** / **false** | When set to true, TCP will be used instead of UDP.
 
-###### Plugin Object Example #1:
+###### Plugin Object Example #1
+
 This example will stream audio from talkgroup 58914 on system "CountyTrunked" to the local machine on UDP port 9123.
+
 ```yaml
         {
           "name":"simplestream",
@@ -398,8 +397,10 @@ This example will stream audio from talkgroup 58914 on system "CountyTrunked" to
         }
 ```
 
-###### Plugin Object Example #2:
+###### Plugin Object Example #2
+
 This example will stream audio from talkgroup 58914 from System CountyTrunked to the local machine on UDP port 9123 and stream audio from talkgroup 58916 from System "StateTrunked" to the local machine on UDP port 9124.
+
 ```yaml
         {
           "name":"simplestream",
@@ -419,8 +420,10 @@ This example will stream audio from talkgroup 58914 from System CountyTrunked to
         }
 ```
 
-###### Plugin Object Example #3:
+###### Plugin Object Example #3
+
 This example will stream audio from talkgroups 58914 and 58916 from all Systems to the local machine on the same UDP port 9123.  It will prepend the TGID and other JSON metadata to the audio data in each UDP packet so that the receiving program can differentiate the two audio streams (the receiver may decide to only play one depending on priority, mix the two streams, play one left and one right, etc.)
+
 ```yaml
         {
           "name":"simplestream",
@@ -437,8 +440,11 @@ This example will stream audio from talkgroups 58914 and 58916 from all Systems 
           ]}
         }
 ```
-###### Plugin Object Example #4:
+
+###### Plugin Object Example #4
+
 This example will stream audio from all talkgroups being recorded on System CountyTrunked to the local machine on UDP port 9123.  It will prepend the TGID and other JSON metadata to the audio data in each UDP packet so that the receiving program can decide which ones to play or otherwise handle)
+
 ```yaml
         {
           "name":"simplestream",
@@ -451,14 +457,19 @@ This example will stream audio from all talkgroups being recorded on System Coun
             "shortName":"CountyTrunked"}
         }
 ```
+
 ##### Example - Sending Audio to pulseaudio
+
 pulseaudio is the default sound system on many Linux computers, including the Raspberry Pi.  If configured to do so, pulseaudio can accept raw audio via TCP connection using the module-simple-protocol-tcp module.  Each TCP connection will show up as a different "application" in the pavucontrol volume mixer.
 
 An example command to set up pulseaudio to receive 8 kHz digital audio from simplestream on TCP port 9125 (for 16 kHz analog audio, use `rate=16000`):
+
 ```
 pacmd load-module module-simple-protocol-tcp sink=1 playback=true port=9125 format=s16le rate=8000 channels=1
 ```
+
 The matching simplestream config to send audio from talkgroup 58918 to TCP port 9125 would then be something like this:
+
 ```yaml
         {
           "name":"simplestream",
@@ -472,7 +483,9 @@ The matching simplestream config to send audio from talkgroup 58918 to TCP port 
             "useTCP":true}
         }
 ```
+
 #### Example - Sending Audio to FFMPEG for compression
+
 Here's an FFMPEG command that takes PCM audio from simplestream via UDP, cleans it up, and outputs ogg/opus to stdout.  Note that this will only work if sendTGID and sendJSON are both set to false and only a single talkgroup is fed to ffmpeg over the UDP port, as ffmpeg cannot interpret any metadata.
 `ffmpeg -loglevel warning -f s16le -ar 16000 -ac 1 -i udp://localhost:9125 -af:a adeclick -f:a ogg -c:a libopus -frame_duration:a 20 -vbr:a on -b:a 48000 -application:a voip pipe:1`
 
@@ -501,13 +514,12 @@ The columns are:
 | Preferred NAC |     | In Multi-Site mode, the preferred NAC (`nnnn`, e.g. `1234`), RFSS/SiteID (`RRRRssss`, e.g. `00010023`), or multiSiteSystemNumber to record a specific talkgroup.|
 | Comment |        | Use this field to capture comments about a talkgroup. It will be ignored by Trunk Recorder. |
 
-Here are the column headers and some sample data: 
+Here are the column headers and some sample data:
 
 | Decimal | Hex | Mode | Alpha Tag    | Description    | Tag            | Category    | Priority | Preferred NAC |
 |-----|-----|------|--------------|----------------|----------------|----------|----------|-------------------------|
 |101  | 065 | D    | DCFD 01 Disp | 01 Dispatch    | Fire Dispatch  | Fire     | 1        | 1000                    |
 |2227 | 8b3 | D    | DC StcarYard | Streetcar Yard | Transportation | Services | 3        | 1001                    |
-
 
 ## channelFile
 
@@ -533,7 +545,6 @@ A **Header Row** is required for the file, with a header provided for each of th
 | --------- | --------- | -------- | ------------- | ---------------------- | ------ | ------ | ------------------- | ---- | ---- |
 | 300       | 462275000 | 94.8  | Town A Police | Town A Police Dispatch | Police | Town A |    |  false |  |
 | 325       | 462275000 | 151.4 | Town B DPW    | Town B Trash Dispatch  | DPW    | Town B | false   |  |  -50 |
-
 
 ## unitTagsFile
 
