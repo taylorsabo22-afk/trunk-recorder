@@ -9,6 +9,7 @@ fake/
 wmata/
 CMakeFiles/
 build/
+build-android*/
 debug/
 CMakeCache.txt
 Makefile

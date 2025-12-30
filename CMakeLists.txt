@@ -62,6 +62,21 @@ endif()
 if(APPLE)
    set(CMAKE_MACOSX_RPATH ON)
 endif()
+
+# Android-specific configuration
+if(ANDROID)
+    message(STATUS "Configuring for Android platform")
+    message(STATUS "Android ABI: ${ANDROID_ABI}")
+    message(STATUS "Android API Level: ${ANDROID_PLATFORM}")
+    
+    # Set Android-specific flags
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
+    
+    # Android requires position-independent executables
+    set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+endif()
+
 set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib/trunk-recorder")
 
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
