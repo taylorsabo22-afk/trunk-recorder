@@ -6,10 +6,10 @@
 set -e
 
 # Check if we're in the right directory
-if [ ! -d trunk-recorder/recorders ]; then
-    echo "====== ERROR: trunk-recorder top level directories not found."
-    echo "====== You must change to the trunk-recorder top level directory"
-    echo "====== before running this script."
+if [ ! -d "trunk-recorder/recorders" ]; then
+    echo "====== ERROR: trunk-recorder/recorders directory not found."
+    echo "====== You must run this script from the repository root directory"
+    echo "====== (the directory containing the trunk-recorder subdirectory)"
     exit 1
 fi
 
