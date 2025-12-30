@@ -1,0 +1,30 @@
+{
+  "ver": 2,
+  "sources": [{
+    "driver": "osmosdr",
+    "device": "rtl=0",
+    "gain": 40,
+    "error": 0,
+    "ppm": 0,
+    "digitalRecorders": 2,
+    "debugRecorders": 0,
+    "analogRecorders": 0
+  }],
+  "systems": [{
+    "shortName": "example",
+    "type": "p25",
+    "control_channels": [854462500],
+    "modulation": "qpsk",
+    "talkgroupsFile": "talkgroups.csv",
+    "apiKey": "",
+    "uploadScript": ""
+  }],
+  "callTimeout": 3,
+  "broadcastifyCallsServer": "",
+  "captureDir": "/sdcard/trunk-recorder",
+  "uploadServer": "",
+  "logLevel": "info",
+  "controlWarnRate": 10,
+  "controlRetuneLimit": 0,
+  "freqDeleteAfterUpload": false
+}

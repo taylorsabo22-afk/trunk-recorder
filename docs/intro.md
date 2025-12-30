@@ -25,7 +25,7 @@ Trunk Recorder currently supports the following:
 
 Supported platforms:
 
-**Ubuntu** (18.04,  20.04, 21.04, 22.04, 23.04); **Raspberry Pi** (Raspberry OS/Raspbian & Ubuntu 21.04, 22.04); **Arch Linux** (2021.09.20); **Debian** (9.x); **macOS**
+**Ubuntu** (18.04,  20.04, 21.04, 22.04, 23.04); **Raspberry Pi** (Raspberry OS/Raspbian & Ubuntu 21.04, 22.04); **Arch Linux** (2021.09.20); **Debian** (9.x); **macOS**; **Android** (via Termux or NDK)
 
 GNU Radio 3.7 - 3.10
 
@@ -46,6 +46,10 @@ RTL-SDR dongles; HackRF; Ettus USRP B200, B210, B205; BladeRF; Airspy
 
 ### MacOS
 - [From Source](docs/Install/INSTALL-MAC.md#using-homebrew)
+
+### Android
+- [Using Termux](docs/Install/INSTALL-ANDROID.md) - Run on Android devices via Termux
+- [Using NDK](docs/Install/INSTALL-ANDROID.md#method-2-building-with-android-ndk) - Build with Android NDK
 
 
 

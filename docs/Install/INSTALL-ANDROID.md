@@ -89,11 +89,23 @@ make install
 
 ### Running on Android via Termux
 
-After building:
+After building, create a configuration file or use the provided example:
 
 ```bash
+# Copy the example Android configuration
+cp examples/config-android-termux.json config.json
+
+# Edit it to match your system
+nano config.json
+
+# Run trunk-recorder
 ./trunk-recorder --config=config.json
 ```
+
+**Note on Storage Paths in Termux:**
+- Use `/sdcard/trunk-recorder` for recordings to access them from file managers
+- Or use `~/storage/shared/trunk-recorder` after running `termux-setup-storage`
+- Ensure the directory exists before running: `mkdir -p /sdcard/trunk-recorder`
 
 **Important Considerations:**
 - Performance may be limited compared to desktop systems
