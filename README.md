@@ -39,6 +39,7 @@ Trunk Recorder currently supports the following:
 - **Arch Linux** 
 - **Debian** 
 - **macOS**
+- **Android** (via Termux or NDK)
 
 GNU Radio 3.7 - 3.10
 
@@ -59,6 +60,10 @@ RTL-SDR dongles; HackRF; Ettus USRP B200, B210, B205; BladeRF; Airspy; SDRplay
 
 ### MacOS
 - [From Source](docs/Install/INSTALL-MAC.md#using-homebrew)
+
+### Android
+- [Using Termux](docs/Install/INSTALL-ANDROID.md) - Run on Android devices via Termux
+- [Using NDK](docs/Install/INSTALL-ANDROID.md#method-2-building-with-android-ndk) - Build with Android NDK
 
 
 
