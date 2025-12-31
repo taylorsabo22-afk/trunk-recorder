@@ -144,6 +144,22 @@ echo "Build Directory: $BUILD_DIR"
 echo "Parallel Jobs: $JOBS"
 echo "==============================="
 
+# Note about GNU Radio
+echo ""
+echo "====== Important: GNU Radio Dependencies ======"
+echo "This build requires GNU Radio and its dependencies to be"
+echo "cross-compiled for Android. The CMake modules will search"
+echo "for GNU Radio in standard locations."
+echo ""
+echo "If GNU Radio is not found, you may need to specify paths:"
+echo "  -DGNURADIO_DIR=/path/to/gnuradio"
+echo "  -DCMAKE_PREFIX_PATH=/path/to/dependencies"
+echo ""
+echo "For Termux users, GNU Radio can be installed with:"
+echo "  pkg install gnuradio gnuradio-osmosdr"
+echo "==============================================="
+echo ""
+
 # Configure with CMake
 echo "====== Configuring CMake for Android ======"
 cmake .. \

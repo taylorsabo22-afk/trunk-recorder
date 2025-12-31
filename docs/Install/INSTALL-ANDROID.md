@@ -60,6 +60,8 @@ pkg install -y build-essential cmake git boost gnuradio gnuradio-osmosdr libusb 
 
 **Note**: Some packages may not be available in the default Termux repositories. You may need to build some dependencies from source or use alternative libraries.
 
+**GNU Radio on Termux**: The custom CMake modules included with Trunk Recorder (`FindGnuradio.cmake` and `GrVersion.cmake`) will automatically detect GNU Radio installed via Termux's package manager. If CMake cannot find GNU Radio, ensure it's properly installed with `pkg list-installed | grep gnuradio`.
+
 ### Grant USB Device Access
 
 To use SDR devices with Termux, you need to grant USB permissions:
@@ -144,6 +146,16 @@ You'll need to cross-compile the following dependencies for Android:
 - curl
 
 This is a complex process. Consider using a cross-compilation framework like [vcpkg](https://vcpkg.io/) with Android support.
+
+**Note on GNU Radio:** Trunk Recorder now includes custom CMake modules (`FindGnuradio.cmake` and `GrVersion.cmake`) that help locate GNU Radio on Android systems. These modules will automatically search for GNU Radio in standard locations and handle version detection.
+
+If you have GNU Radio installed in a custom location, you can specify it during the CMake configuration:
+```bash
+cmake .. \
+  -DGNURADIO_DIR=/path/to/gnuradio \
+  -DCMAKE_PREFIX_PATH=/path/to/dependencies \
+  ...
+```
 
 ### Configure Build for Android
 
