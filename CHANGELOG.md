@@ -6,6 +6,7 @@ Trunk Recorder ChangeLog
 * Some documentation updates by @SimonSheehan in #1019 and #1023
 * When logging Control Channel decode rate warnings, include the Control Channel's frequency by @gofaster in #1030
 * Removed boost 'system' required component by @taclane in #1037
+* Added GNU Radio CMake modules for improved Android compatibility - Custom FindGnuradio.cmake and GrVersion.cmake modules to support Android NDK and Termux builds
 
 ### Version 5.0.2 - Quality of Life Improvements
 * Hostname resolution cache for upload plugins by @taclane in #973
