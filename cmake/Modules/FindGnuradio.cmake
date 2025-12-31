@@ -60,8 +60,8 @@ if(GNURADIO_INCLUDE_DIR AND EXISTS "${GNURADIO_INCLUDE_DIR}/gnuradio/attributes.
     
     # Try to extract version - format varies by GNU Radio version
     # Pattern handles standard versions (3.8.0) and pre-release versions (3.8.0-rc1)
-    string(REGEX MATCH "#define GNURADIO_VERSION \"([0-9]+)\\.([0-9]+)\\.([0-9]+)(-[a-zA-Z0-9]+)?" 
-           _gnuradio_version_match "${_gnuradio_version_content}")
+    set(_version_regex "#define GNURADIO_VERSION \"([0-9]+)\\.([0-9]+)\\.([0-9]+)(-[a-zA-Z0-9]+)?")
+    string(REGEX MATCH "${_version_regex}" _gnuradio_version_match "${_gnuradio_version_content}")
     
     if(_gnuradio_version_match)
         set(Gnuradio_VERSION_MAJOR "${CMAKE_MATCH_1}")
@@ -91,7 +91,9 @@ if(NOT Gnuradio_VERSION)
     set(Gnuradio_VERSION_MAJOR "3")
     set(Gnuradio_VERSION_MINOR "8")
     set(Gnuradio_VERSION_PATCH "0")
-    message(WARNING "Could not determine GNU Radio version, assuming ${Gnuradio_VERSION}")
+    message(WARNING "Could not determine GNU Radio version, assuming ${Gnuradio_VERSION}. "
+                    "This may cause build issues if the actual version differs. "
+                    "Consider setting GNURADIO_DIR or CMAKE_PREFIX_PATH to help locate GNU Radio.")
 endif()
 
 # Define component names and their library names

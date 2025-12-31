@@ -60,7 +60,7 @@ pkg install -y build-essential cmake git boost gnuradio gnuradio-osmosdr libusb 
 
 **Note**: Some packages may not be available in the default Termux repositories. You may need to build some dependencies from source or use alternative libraries.
 
-**GNU Radio on Termux**: The custom CMake modules included with Trunk Recorder (`FindGnuradio.cmake` and `GrVersion.cmake`) will automatically detect GNU Radio installed via Termux's package manager. If CMake cannot find GNU Radio, ensure it's properly installed with `pkg list-installed | grep gnuradio`.
+**GNU Radio on Termux**: The custom CMake modules included with Trunk Recorder (`FindGnuradio.cmake` and `GrVersion.cmake`) will automatically detect GNU Radio installed via Termux's package manager. If CMake cannot find GNU Radio, ensure it's properly installed with `pkg show gnuradio` or `dpkg -l | grep gnuradio`.
 
 ### Grant USB Device Access
 
