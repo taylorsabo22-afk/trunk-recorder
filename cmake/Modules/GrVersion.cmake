@@ -5,7 +5,7 @@
 # and can be used to handle version-specific behavior
 
 if(NOT Gnuradio_VERSION)
-    message(WARNING "Gnuradio_VERSION not set. GrVersion.cmake should be included after finding Gnuradio package.")
+    message(WARNING "GNU Radio version not set. GrVersion.cmake should be included after finding GNU Radio package.")
     set(Gnuradio_VERSION "3.8.0")
     set(Gnuradio_VERSION_MAJOR "3")
     set(Gnuradio_VERSION_MINOR "8")

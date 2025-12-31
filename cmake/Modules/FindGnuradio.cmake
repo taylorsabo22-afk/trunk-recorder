@@ -7,7 +7,7 @@
 #  GNURADIO_LIBRARIES - Link these to use GNU Radio
 #  Gnuradio_VERSION - GNU Radio version string
 #  Gnuradio_VERSION_MAJOR - GNU Radio major version
-#  Gnuradio_VERSION_MINOR - GNU Radio minor version  
+#  Gnuradio_VERSION_MINOR - GNU Radio minor version
 #  Gnuradio_VERSION_PATCH - GNU Radio patch version
 #
 # Component variables:
@@ -59,7 +59,8 @@ if(GNURADIO_INCLUDE_DIR AND EXISTS "${GNURADIO_INCLUDE_DIR}/gnuradio/attributes.
     file(READ "${GNURADIO_INCLUDE_DIR}/gnuradio/attributes.h" _gnuradio_version_content)
     
     # Try to extract version - format varies by GNU Radio version
-    string(REGEX MATCH "#define GNURADIO_VERSION \"([0-9]+)\\.([0-9]+)\\.([0-9]+)" 
+    # Pattern handles standard versions (3.8.0) and pre-release versions (3.8.0-rc1)
+    string(REGEX MATCH "#define GNURADIO_VERSION \"([0-9]+)\\.([0-9]+)\\.([0-9]+)(-[a-zA-Z0-9]+)?" 
            _gnuradio_version_match "${_gnuradio_version_content}")
     
     if(_gnuradio_version_match)
